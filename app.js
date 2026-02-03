@@ -54,7 +54,7 @@ const scenarioData = {
     },
     cooling: {
         data: [{x: 0, y: 80}, {x: 2, y: 68}, {x: 4, y: 55}, {x: 6, y: 45}, {x: 8, y: 38}, {x: 10, y: 32}],
-        options: { maxX: 12, maxY: 100, xStep: 2, yStep: 20, xLabel: 'Time (min)', yLabel: 'Temp (°C)', lineStartY: 80, color: '#ef4444', curve: true }
+        options: { maxX: 12, maxY: 100, xStep: 2, yStep: 20, xLabel: 'Time (min)', yLabel: 'Temp (°C)', lineStartY: 80, lineEndY: 28, color: '#ef4444' }
     }
 };
 
@@ -190,11 +190,13 @@ function drawScenarioGraph(ctx, canvas, data, options, showPoints, showLine) {
                 ctx.quadraticCurveTo(prevX + (px - prevX) * 0.5, prevY, px, py);
             }
         } else {
-            // Straight line
+            // Straight best-fit line
             const firstY = canvas.height - margin - options.lineStartY * scaleY;
             const lastData = data[data.length - 1];
             const lastX = margin + lastData.x * scaleX;
-            const lastY = canvas.height - margin - lastData.y * scaleY;
+            // Use lineEndY if provided, otherwise use last data point
+            const endY = options.lineEndY !== undefined ? options.lineEndY : lastData.y;
+            const lastY = canvas.height - margin - endY * scaleY;
             ctx.moveTo(margin, firstY);
             ctx.lineTo(lastX, lastY);
         }
