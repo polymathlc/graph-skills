@@ -252,8 +252,115 @@
                             </div>
                         </div>
 
-                        <div class="visual-demo">
-                            <canvas id="faq6Canvas" width="400" height="200"></canvas>
+                        <h4 style="margin-top: 2rem; margin-bottom: 1rem;">📊 See the Data:</h4>
+                        
+                        <div class="scenario-tabs">
+                            <button class="scenario-tab active" data-scenario="taxi">🚕 Taxi Fare</button>
+                            <button class="scenario-tab" data-scenario="study">📚 Study Hours</button>
+                            <button class="scenario-tab" data-scenario="spring">🔩 Spring Length</button>
+                            <button class="scenario-tab" data-scenario="cooling">☕ Cooling Water</button>
+                        </div>
+                        
+                        <div class="scenario-content">
+                            <!-- Taxi Scenario -->
+                            <div class="scenario-panel active" id="scenario-taxi">
+                                <div class="scenario-grid">
+                                    <div class="scenario-data">
+                                        <h5>🚕 Taxi Fare vs Distance</h5>
+                                        <p class="scenario-desc">Flag-down fee = $4.00</p>
+                                        <table class="data-table">
+                                            <thead><tr><th>Distance (km)</th><th>Fare ($)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>4.00</td></tr>
+                                                <tr><td>2</td><td>6.40</td></tr>
+                                                <tr><td>4</td><td>8.80</td></tr>
+                                                <tr><td>6</td><td>11.20</td></tr>
+                                                <tr><td>8</td><td>13.60</td></tr>
+                                                <tr><td>10</td><td>16.00</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="scenario-note">📍 Y-intercept = $4 (not zero!)</p>
+                                    </div>
+                                    <div class="scenario-graph">
+                                        <canvas id="scenarioTaxiCanvas" width="280" height="220"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Study Scenario -->
+                            <div class="scenario-panel" id="scenario-study">
+                                <div class="scenario-grid">
+                                    <div class="scenario-data">
+                                        <h5>📚 Hours Studied vs Test Score</h5>
+                                        <p class="scenario-desc">Base score from prior knowledge</p>
+                                        <table class="data-table">
+                                            <thead><tr><th>Hours</th><th>Score (%)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>35</td></tr>
+                                                <tr><td>1</td><td>45</td></tr>
+                                                <tr><td>2</td><td>58</td></tr>
+                                                <tr><td>3</td><td>68</td></tr>
+                                                <tr><td>4</td><td>75</td></tr>
+                                                <tr><td>5</td><td>85</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="scenario-note">📍 Y-intercept = 35% (not zero!)</p>
+                                    </div>
+                                    <div class="scenario-graph">
+                                        <canvas id="scenarioStudyCanvas" width="280" height="220"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Spring Scenario -->
+                            <div class="scenario-panel" id="scenario-spring">
+                                <div class="scenario-grid">
+                                    <div class="scenario-data">
+                                        <h5>🔩 Mass vs Spring Length</h5>
+                                        <p class="scenario-desc">Spring has natural length of 5cm</p>
+                                        <table class="data-table">
+                                            <thead><tr><th>Mass (g)</th><th>Length (cm)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>5.0</td></tr>
+                                                <tr><td>50</td><td>6.2</td></tr>
+                                                <tr><td>100</td><td>7.5</td></tr>
+                                                <tr><td>150</td><td>8.6</td></tr>
+                                                <tr><td>200</td><td>10.0</td></tr>
+                                                <tr><td>250</td><td>11.3</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="scenario-note">📍 Y-intercept = 5cm (natural length!)</p>
+                                    </div>
+                                    <div class="scenario-graph">
+                                        <canvas id="scenarioSpringCanvas" width="280" height="220"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cooling Scenario -->
+                            <div class="scenario-panel" id="scenario-cooling">
+                                <div class="scenario-grid">
+                                    <div class="scenario-data">
+                                        <h5>☕ Cooling Water Temperature</h5>
+                                        <p class="scenario-desc">Room temp = 25°C</p>
+                                        <table class="data-table">
+                                            <thead><tr><th>Time (min)</th><th>Temp (°C)</th></tr></thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>80</td></tr>
+                                                <tr><td>2</td><td>68</td></tr>
+                                                <tr><td>4</td><td>55</td></tr>
+                                                <tr><td>6</td><td>45</td></tr>
+                                                <tr><td>8</td><td>38</td></tr>
+                                                <tr><td>10</td><td>32</td></tr>
+                                            </tbody>
+                                        </table>
+                                        <p class="scenario-note">📍 Starts at 80°C (not zero!)</p>
+                                    </div>
+                                    <div class="scenario-graph">
+                                        <canvas id="scenarioCoolingCanvas" width="280" height="220"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="tip success">

@@ -395,6 +395,113 @@ body {
     margin-top: 0.5rem;
 }
 
+/* Scenario Tabs */
+.scenario-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.scenario-tab {
+    padding: 10px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.scenario-tab:hover {
+    border-color: #667eea;
+    background: #f8fafc;
+}
+
+.scenario-tab.active {
+    border-color: #667eea;
+    background: #667eea;
+    color: white;
+}
+
+.scenario-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.scenario-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.scenario-data h5 {
+    font-size: 1rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.scenario-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.data-table th {
+    background: #667eea;
+    color: white;
+    font-weight: 500;
+}
+
+.data-table tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.scenario-note {
+    font-size: 0.85rem;
+    color: #667eea;
+    font-weight: 600;
+    padding: 8px 12px;
+    background: #ede9fe;
+    border-radius: 6px;
+}
+
+.scenario-graph canvas {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    .scenario-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Practice Section */
 .practice-section {
     background: white;

@@ -6,7 +6,218 @@ document.addEventListener('DOMContentLoaded', () => {
     initFAQCanvases();
     initPracticeCanvas();
     initFAQToggle();
+    initScenarioTabs();
+    initScenarioCanvases();
 });
+
+// Scenario Tabs
+function initScenarioTabs() {
+    const tabs = document.querySelectorAll('.scenario-tab');
+    const panels = document.querySelectorAll('.scenario-panel');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const scenario = tab.dataset.scenario;
+            
+            // Update tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Update panels
+            panels.forEach(p => p.classList.remove('active'));
+            document.getElementById(`scenario-${scenario}`).classList.add('active');
+        });
+    });
+}
+
+// Scenario Canvases
+function initScenarioCanvases() {
+    drawScenarioTaxi();
+    drawScenarioStudy();
+    drawScenarioSpring();
+    drawScenarioCooling();
+}
+
+function drawScenarioTaxi() {
+    const canvas = document.getElementById('scenarioTaxiCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const margin = 45;
+    const data = [
+        {x: 0, y: 4}, {x: 2, y: 6.4}, {x: 4, y: 8.8},
+        {x: 6, y: 11.2}, {x: 8, y: 13.6}, {x: 10, y: 16}
+    ];
+    
+    drawScenarioGraph(ctx, canvas, data, {
+        maxX: 12, maxY: 18, xStep: 2, yStep: 4,
+        xLabel: 'Distance (km)', yLabel: 'Fare ($)',
+        lineStartY: 4, color: '#667eea'
+    });
+}
+
+function drawScenarioStudy() {
+    const canvas = document.getElementById('scenarioStudyCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const data = [
+        {x: 0, y: 35}, {x: 1, y: 45}, {x: 2, y: 58},
+        {x: 3, y: 68}, {x: 4, y: 75}, {x: 5, y: 85}
+    ];
+    
+    drawScenarioGraph(ctx, canvas, data, {
+        maxX: 6, maxY: 100, xStep: 1, yStep: 20,
+        xLabel: 'Hours Studied', yLabel: 'Score (%)',
+        lineStartY: 35, color: '#10b981'
+    });
+}
+
+function drawScenarioSpring() {
+    const canvas = document.getElementById('scenarioSpringCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const data = [
+        {x: 0, y: 5}, {x: 50, y: 6.2}, {x: 100, y: 7.5},
+        {x: 150, y: 8.6}, {x: 200, y: 10}, {x: 250, y: 11.3}
+    ];
+    
+    drawScenarioGraph(ctx, canvas, data, {
+        maxX: 300, maxY: 14, xStep: 50, yStep: 2,
+        xLabel: 'Mass (g)', yLabel: 'Length (cm)',
+        lineStartY: 5, color: '#f59e0b'
+    });
+}
+
+function drawScenarioCooling() {
+    const canvas = document.getElementById('scenarioCoolingCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const data = [
+        {x: 0, y: 80}, {x: 2, y: 68}, {x: 4, y: 55},
+        {x: 6, y: 45}, {x: 8, y: 38}, {x: 10, y: 32}
+    ];
+    
+    drawScenarioGraph(ctx, canvas, data, {
+        maxX: 12, maxY: 100, xStep: 2, yStep: 20,
+        xLabel: 'Time (min)', yLabel: 'Temp (°C)',
+        lineStartY: 80, color: '#ef4444', curve: true
+    });
+}
+
+function drawScenarioGraph(ctx, canvas, data, options) {
+    const margin = 45;
+    const width = canvas.width - margin - 15;
+    const height = canvas.height - margin - 25;
+    
+    const scaleX = width / options.maxX;
+    const scaleY = height / options.maxY;
+    
+    // Clear
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Grid
+    ctx.strokeStyle = '#f1f5f9';
+    ctx.lineWidth = 1;
+    
+    for (let i = 0; i <= options.maxX; i += options.xStep) {
+        const x = margin + i * scaleX;
+        ctx.beginPath();
+        ctx.moveTo(x, 10);
+        ctx.lineTo(x, canvas.height - margin);
+        ctx.stroke();
+    }
+    
+    for (let i = 0; i <= options.maxY; i += options.yStep) {
+        const y = canvas.height - margin - i * scaleY;
+        ctx.beginPath();
+        ctx.moveTo(margin, y);
+        ctx.lineTo(canvas.width - 10, y);
+        ctx.stroke();
+    }
+    
+    // Axes
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, 10);
+    ctx.lineTo(margin, canvas.height - margin);
+    ctx.lineTo(canvas.width - 10, canvas.height - margin);
+    ctx.stroke();
+    
+    // Scale labels
+    ctx.font = '9px Poppins';
+    ctx.fillStyle = '#64748b';
+    ctx.textAlign = 'center';
+    
+    for (let i = 0; i <= options.maxX; i += options.xStep) {
+        ctx.fillText(i, margin + i * scaleX, canvas.height - margin + 15);
+    }
+    
+    ctx.textAlign = 'right';
+    for (let i = 0; i <= options.maxY; i += options.yStep) {
+        ctx.fillText(i, margin - 5, canvas.height - margin - i * scaleY + 3);
+    }
+    
+    // Axis labels
+    ctx.fillStyle = '#64748b';
+    ctx.font = '10px Poppins';
+    ctx.textAlign = 'center';
+    ctx.fillText(options.xLabel, margin + width / 2, canvas.height - 5);
+    
+    ctx.save();
+    ctx.translate(12, canvas.height / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText(options.yLabel, 0, 0);
+    ctx.restore();
+    
+    // Draw line or curve
+    ctx.strokeStyle = options.color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    
+    if (options.curve) {
+        // Curved line for cooling
+        ctx.moveTo(margin, canvas.height - margin - data[0].y * scaleY);
+        for (let i = 1; i < data.length; i++) {
+            const px = margin + data[i].x * scaleX;
+            const py = canvas.height - margin - data[i].y * scaleY;
+            const prevX = margin + data[i-1].x * scaleX;
+            const prevY = canvas.height - margin - data[i-1].y * scaleY;
+            const cpX = (prevX + px) / 2;
+            ctx.quadraticCurveTo(prevX + (px - prevX) * 0.5, prevY, px, py);
+        }
+    } else {
+        // Straight line
+        const firstY = canvas.height - margin - options.lineStartY * scaleY;
+        const lastData = data[data.length - 1];
+        const lastX = margin + lastData.x * scaleX;
+        const lastY = canvas.height - margin - lastData.y * scaleY;
+        ctx.moveTo(margin, firstY);
+        ctx.lineTo(lastX, lastY);
+    }
+    ctx.stroke();
+    
+    // Draw points
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 2;
+    data.forEach(point => {
+        const px = margin + point.x * scaleX;
+        const py = canvas.height - margin - point.y * scaleY;
+        drawXMark(ctx, px, py, 4);
+    });
+    
+    // Highlight y-intercept
+    ctx.fillStyle = options.color;
+    ctx.globalAlpha = 0.3;
+    ctx.beginPath();
+    ctx.arc(margin, canvas.height - margin - data[0].y * scaleY, 10, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+}
 
 // FAQ Toggle
 function initFAQToggle() {
