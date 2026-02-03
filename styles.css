@@ -500,6 +500,19 @@ body {
     background: #f8fafc;
 }
 
+.scenario-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
 .scenario-note {
     font-size: 0.85rem;
     color: #667eea;

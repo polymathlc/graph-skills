@@ -30,87 +30,86 @@ function initScenarioTabs() {
     });
 }
 
+// Scenario State
+const scenarioState = {
+    taxi: { showPoints: false, showLine: false },
+    study: { showPoints: false, showLine: false },
+    spring: { showPoints: false, showLine: false },
+    cooling: { showPoints: false, showLine: false }
+};
+
+// Scenario Data
+const scenarioData = {
+    taxi: {
+        data: [{x: 0, y: 4}, {x: 2, y: 6.4}, {x: 4, y: 8.8}, {x: 6, y: 11.2}, {x: 8, y: 13.6}, {x: 10, y: 16}],
+        options: { maxX: 12, maxY: 18, xStep: 2, yStep: 4, xLabel: 'Distance (km)', yLabel: 'Fare ($)', lineStartY: 4, color: '#667eea' }
+    },
+    study: {
+        data: [{x: 0, y: 35}, {x: 1, y: 45}, {x: 2, y: 58}, {x: 3, y: 68}, {x: 4, y: 75}, {x: 5, y: 85}],
+        options: { maxX: 6, maxY: 100, xStep: 1, yStep: 20, xLabel: 'Hours Studied', yLabel: 'Score (%)', lineStartY: 35, color: '#10b981' }
+    },
+    spring: {
+        data: [{x: 0, y: 5}, {x: 50, y: 6.2}, {x: 100, y: 7.5}, {x: 150, y: 8.6}, {x: 200, y: 10}, {x: 250, y: 11.3}],
+        options: { maxX: 300, maxY: 14, xStep: 50, yStep: 2, xLabel: 'Mass (g)', yLabel: 'Length (cm)', lineStartY: 5, color: '#f59e0b' }
+    },
+    cooling: {
+        data: [{x: 0, y: 80}, {x: 2, y: 68}, {x: 4, y: 55}, {x: 6, y: 45}, {x: 8, y: 38}, {x: 10, y: 32}],
+        options: { maxX: 12, maxY: 100, xStep: 2, yStep: 20, xLabel: 'Time (min)', yLabel: 'Temp (°C)', lineStartY: 80, color: '#ef4444', curve: true }
+    }
+};
+
 // Scenario Canvases
 function initScenarioCanvases() {
-    drawScenarioTaxi();
-    drawScenarioStudy();
-    drawScenarioSpring();
-    drawScenarioCooling();
+    drawAllScenarios();
+    initScenarioButtons();
 }
 
-function drawScenarioTaxi() {
-    const canvas = document.getElementById('scenarioTaxiCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    const margin = 45;
-    const data = [
-        {x: 0, y: 4}, {x: 2, y: 6.4}, {x: 4, y: 8.8},
-        {x: 6, y: 11.2}, {x: 8, y: 13.6}, {x: 10, y: 16}
-    ];
-    
-    drawScenarioGraph(ctx, canvas, data, {
-        maxX: 12, maxY: 18, xStep: 2, yStep: 4,
-        xLabel: 'Distance (km)', yLabel: 'Fare ($)',
-        lineStartY: 4, color: '#667eea'
+function initScenarioButtons() {
+    document.querySelectorAll('.scenario-buttons button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            const scenario = btn.dataset.scenario;
+            
+            if (action === 'points') {
+                scenarioState[scenario].showPoints = !scenarioState[scenario].showPoints;
+                btn.textContent = scenarioState[scenario].showPoints ? 'Hide Points' : 'Show Points';
+            } else if (action === 'line') {
+                scenarioState[scenario].showLine = !scenarioState[scenario].showLine;
+                btn.textContent = scenarioState[scenario].showLine ? 'Hide Best-Fit Line' : 'Show Best-Fit Line';
+            } else if (action === 'reset') {
+                scenarioState[scenario].showPoints = false;
+                scenarioState[scenario].showLine = false;
+                // Reset button texts
+                const panel = document.getElementById(`scenario-${scenario}`);
+                panel.querySelector('[data-action="points"]').textContent = 'Show Points';
+                panel.querySelector('[data-action="line"]').textContent = 'Show Best-Fit Line';
+            }
+            
+            drawScenario(scenario);
+        });
     });
 }
 
-function drawScenarioStudy() {
-    const canvas = document.getElementById('scenarioStudyCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    const data = [
-        {x: 0, y: 35}, {x: 1, y: 45}, {x: 2, y: 58},
-        {x: 3, y: 68}, {x: 4, y: 75}, {x: 5, y: 85}
-    ];
-    
-    drawScenarioGraph(ctx, canvas, data, {
-        maxX: 6, maxY: 100, xStep: 1, yStep: 20,
-        xLabel: 'Hours Studied', yLabel: 'Score (%)',
-        lineStartY: 35, color: '#10b981'
-    });
+function drawAllScenarios() {
+    ['taxi', 'study', 'spring', 'cooling'].forEach(drawScenario);
 }
 
-function drawScenarioSpring() {
-    const canvas = document.getElementById('scenarioSpringCanvas');
+function drawScenario(scenarioName) {
+    const canvasId = `scenario${scenarioName.charAt(0).toUpperCase() + scenarioName.slice(1)}Canvas`;
+    const canvas = document.getElementById(canvasId);
     if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
+    const { data, options } = scenarioData[scenarioName];
+    const state = scenarioState[scenarioName];
     
-    const data = [
-        {x: 0, y: 5}, {x: 50, y: 6.2}, {x: 100, y: 7.5},
-        {x: 150, y: 8.6}, {x: 200, y: 10}, {x: 250, y: 11.3}
-    ];
-    
-    drawScenarioGraph(ctx, canvas, data, {
-        maxX: 300, maxY: 14, xStep: 50, yStep: 2,
-        xLabel: 'Mass (g)', yLabel: 'Length (cm)',
-        lineStartY: 5, color: '#f59e0b'
-    });
+    drawScenarioGraph(ctx, canvas, data, options, state.showPoints, state.showLine);
 }
 
-function drawScenarioCooling() {
-    const canvas = document.getElementById('scenarioCoolingCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    const data = [
-        {x: 0, y: 80}, {x: 2, y: 68}, {x: 4, y: 55},
-        {x: 6, y: 45}, {x: 8, y: 38}, {x: 10, y: 32}
-    ];
-    
-    drawScenarioGraph(ctx, canvas, data, {
-        maxX: 12, maxY: 100, xStep: 2, yStep: 20,
-        xLabel: 'Time (min)', yLabel: 'Temp (°C)',
-        lineStartY: 80, color: '#ef4444', curve: true
-    });
-}
-
-function drawScenarioGraph(ctx, canvas, data, options) {
-    const margin = 45;
-    const width = canvas.width - margin - 15;
-    const height = canvas.height - margin - 25;
+function drawScenarioGraph(ctx, canvas, data, options, showPoints, showLine) {
+    const margin = 50;
+    const width = canvas.width - margin - 20;
+    const height = canvas.height - margin - 30;
     
     const scaleX = width / options.maxX;
     const scaleY = height / options.maxY;
@@ -120,13 +119,13 @@ function drawScenarioGraph(ctx, canvas, data, options) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     // Grid
-    ctx.strokeStyle = '#f1f5f9';
+    ctx.strokeStyle = '#e2e8f0';
     ctx.lineWidth = 1;
     
     for (let i = 0; i <= options.maxX; i += options.xStep) {
         const x = margin + i * scaleX;
         ctx.beginPath();
-        ctx.moveTo(x, 10);
+        ctx.moveTo(x, 15);
         ctx.lineTo(x, canvas.height - margin);
         ctx.stroke();
     }
@@ -135,7 +134,7 @@ function drawScenarioGraph(ctx, canvas, data, options) {
         const y = canvas.height - margin - i * scaleY;
         ctx.beginPath();
         ctx.moveTo(margin, y);
-        ctx.lineTo(canvas.width - 10, y);
+        ctx.lineTo(canvas.width - 15, y);
         ctx.stroke();
     }
     
@@ -143,80 +142,97 @@ function drawScenarioGraph(ctx, canvas, data, options) {
     ctx.strokeStyle = '#1e293b';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(margin, 10);
+    ctx.moveTo(margin, 15);
     ctx.lineTo(margin, canvas.height - margin);
-    ctx.lineTo(canvas.width - 10, canvas.height - margin);
+    ctx.lineTo(canvas.width - 15, canvas.height - margin);
     ctx.stroke();
     
     // Scale labels
-    ctx.font = '9px Poppins';
+    ctx.font = '10px Poppins';
     ctx.fillStyle = '#64748b';
     ctx.textAlign = 'center';
     
     for (let i = 0; i <= options.maxX; i += options.xStep) {
-        ctx.fillText(i, margin + i * scaleX, canvas.height - margin + 15);
+        ctx.fillText(i, margin + i * scaleX, canvas.height - margin + 18);
     }
     
     ctx.textAlign = 'right';
     for (let i = 0; i <= options.maxY; i += options.yStep) {
-        ctx.fillText(i, margin - 5, canvas.height - margin - i * scaleY + 3);
+        ctx.fillText(i, margin - 8, canvas.height - margin - i * scaleY + 4);
     }
     
     // Axis labels
     ctx.fillStyle = '#64748b';
-    ctx.font = '10px Poppins';
+    ctx.font = '11px Poppins';
     ctx.textAlign = 'center';
     ctx.fillText(options.xLabel, margin + width / 2, canvas.height - 5);
     
     ctx.save();
-    ctx.translate(12, canvas.height / 2);
+    ctx.translate(14, canvas.height / 2);
     ctx.rotate(-Math.PI / 2);
     ctx.fillText(options.yLabel, 0, 0);
     ctx.restore();
     
-    // Draw line or curve
-    ctx.strokeStyle = options.color;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    
-    if (options.curve) {
-        // Curved line for cooling
-        ctx.moveTo(margin, canvas.height - margin - data[0].y * scaleY);
-        for (let i = 1; i < data.length; i++) {
-            const px = margin + data[i].x * scaleX;
-            const py = canvas.height - margin - data[i].y * scaleY;
-            const prevX = margin + data[i-1].x * scaleX;
-            const prevY = canvas.height - margin - data[i-1].y * scaleY;
-            const cpX = (prevX + px) / 2;
-            ctx.quadraticCurveTo(prevX + (px - prevX) * 0.5, prevY, px, py);
+    // Draw best-fit line
+    if (showLine) {
+        ctx.strokeStyle = options.color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        
+        if (options.curve) {
+            // Curved line for cooling
+            ctx.moveTo(margin, canvas.height - margin - data[0].y * scaleY);
+            for (let i = 1; i < data.length; i++) {
+                const px = margin + data[i].x * scaleX;
+                const py = canvas.height - margin - data[i].y * scaleY;
+                const prevX = margin + data[i-1].x * scaleX;
+                const prevY = canvas.height - margin - data[i-1].y * scaleY;
+                ctx.quadraticCurveTo(prevX + (px - prevX) * 0.5, prevY, px, py);
+            }
+        } else {
+            // Straight line
+            const firstY = canvas.height - margin - options.lineStartY * scaleY;
+            const lastData = data[data.length - 1];
+            const lastX = margin + lastData.x * scaleX;
+            const lastY = canvas.height - margin - lastData.y * scaleY;
+            ctx.moveTo(margin, firstY);
+            ctx.lineTo(lastX, lastY);
         }
-    } else {
-        // Straight line
-        const firstY = canvas.height - margin - options.lineStartY * scaleY;
-        const lastData = data[data.length - 1];
-        const lastX = margin + lastData.x * scaleX;
-        const lastY = canvas.height - margin - lastData.y * scaleY;
-        ctx.moveTo(margin, firstY);
-        ctx.lineTo(lastX, lastY);
+        ctx.stroke();
+        
+        // Highlight y-intercept
+        ctx.fillStyle = options.color;
+        ctx.globalAlpha = 0.3;
+        ctx.beginPath();
+        ctx.arc(margin, canvas.height - margin - data[0].y * scaleY, 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        
+        // Y-intercept label
+        ctx.fillStyle = options.color;
+        ctx.font = 'bold 10px Poppins';
+        ctx.textAlign = 'left';
+        ctx.fillText(`(0, ${data[0].y})`, margin + 15, canvas.height - margin - data[0].y * scaleY + 4);
     }
-    ctx.stroke();
     
     // Draw points
-    ctx.strokeStyle = '#ef4444';
-    ctx.lineWidth = 2;
-    data.forEach(point => {
-        const px = margin + point.x * scaleX;
-        const py = canvas.height - margin - point.y * scaleY;
-        drawXMark(ctx, px, py, 4);
-    });
+    if (showPoints) {
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 2;
+        data.forEach(point => {
+            const px = margin + point.x * scaleX;
+            const py = canvas.height - margin - point.y * scaleY;
+            drawXMark(ctx, px, py, 5);
+        });
+    }
     
-    // Highlight y-intercept
-    ctx.fillStyle = options.color;
-    ctx.globalAlpha = 0.3;
-    ctx.beginPath();
-    ctx.arc(margin, canvas.height - margin - data[0].y * scaleY, 10, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
+    // Instruction text if nothing shown
+    if (!showPoints && !showLine) {
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '12px Poppins';
+        ctx.textAlign = 'center';
+        ctx.fillText('Click "Show Points" to start!', canvas.width / 2, canvas.height / 2);
+    }
 }
 
 // FAQ Toggle
@@ -491,7 +507,6 @@ function initFAQCanvases() {
     drawFAQ3Canvas();
     drawFAQ4Canvases();
     drawFAQ5Canvas();
-    drawFAQ6Canvas();
 }
 
 function drawFAQ1Canvas() {
