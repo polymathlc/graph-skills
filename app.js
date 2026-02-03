@@ -280,6 +280,7 @@ function initFAQCanvases() {
     drawFAQ3Canvas();
     drawFAQ4Canvases();
     drawFAQ5Canvas();
+    drawFAQ6Canvas();
 }
 
 function drawFAQ1Canvas() {
@@ -611,6 +612,101 @@ function drawFAQ5Canvas() {
     ctx.font = '11px Poppins';
     ctx.fillStyle = '#667eea';
     ctx.fillText('Smooth curve of best fit', canvas.width / 2, margin - 5);
+}
+
+function drawFAQ6Canvas() {
+    const canvas = document.getElementById('faq6Canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const margin = 50;
+    
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Grid
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 8; i++) {
+        const x = margin + (i / 8) * (canvas.width - margin - 30);
+        ctx.beginPath();
+        ctx.moveTo(x, margin);
+        ctx.lineTo(x, canvas.height - margin);
+        ctx.stroke();
+        
+        const y = margin + (i / 8) * (canvas.height - margin - margin);
+        ctx.beginPath();
+        ctx.moveTo(margin, y);
+        ctx.lineTo(canvas.width - 30, y);
+        ctx.stroke();
+    }
+    
+    // Axes
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, margin);
+    ctx.lineTo(margin, canvas.height - margin);
+    ctx.lineTo(canvas.width - 20, canvas.height - margin);
+    ctx.stroke();
+    
+    const scaleX = (canvas.width - margin - 50) / 10;
+    const scaleY = (canvas.height - margin * 2) / 20;
+    
+    // Taxi fare example: starts at $4, increases with distance
+    const points = [
+        {x: 0, y: 4},
+        {x: 2, y: 6.5},
+        {x: 4, y: 8.8},
+        {x: 6, y: 11.2},
+        {x: 8, y: 14}
+    ];
+    
+    // Draw best-fit line (not through origin)
+    ctx.strokeStyle = '#667eea';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(margin, canvas.height - margin - 4 * scaleY);
+    ctx.lineTo(margin + 9 * scaleX, canvas.height - margin - 15.5 * scaleY);
+    ctx.stroke();
+    
+    // Draw points
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 2;
+    points.forEach(point => {
+        const px = margin + point.x * scaleX;
+        const py = canvas.height - margin - point.y * scaleY;
+        drawXMark(ctx, px, py);
+    });
+    
+    // Highlight where line crosses y-axis (not at origin)
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    ctx.arc(margin, canvas.height - margin - 4 * scaleY, 8, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Labels
+    ctx.font = '10px Poppins';
+    ctx.fillStyle = '#667eea';
+    ctx.textAlign = 'left';
+    ctx.fillText('Starts at $4', margin + 10, canvas.height - margin - 4 * scaleY);
+    ctx.fillText('(flag-down fee)', margin + 10, canvas.height - margin - 4 * scaleY + 12);
+    
+    ctx.fillStyle = '#64748b';
+    ctx.textAlign = 'center';
+    ctx.fillText('Distance (km)', canvas.width / 2, canvas.height - 10);
+    
+    ctx.save();
+    ctx.translate(15, canvas.height / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('Fare ($)', 0, 0);
+    ctx.restore();
+    
+    // Mark origin
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '9px Poppins';
+    ctx.textAlign = 'center';
+    ctx.fillText('(0,0)', margin, canvas.height - margin + 12);
 }
 
 // Practice Canvas

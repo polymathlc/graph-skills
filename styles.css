@@ -355,6 +355,46 @@ body {
     font-size: 0.9rem;
 }
 
+/* Examples Grid */
+.examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.example-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+
+.example-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.example-card h4 {
+    font-size: 0.95rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.example-card p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0.25rem 0;
+}
+
+.example-card .graph-note {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
 /* Practice Section */
 .practice-section {
     background: white;
