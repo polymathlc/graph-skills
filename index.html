@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Skills | Learn to Draw Perfect Line Graphs</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">📈</span>
+            <span class="brand-text">Graph Skills</span>
+        </div>
+        <div class="nav-links">
+            <a href="#learn" class="nav-link">Learn</a>
+            <a href="#practice" class="nav-link">Practice</a>
+            <a href="#faq" class="nav-link">FAQ</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Master Line Graphs 📊</h1>
+            <p>Learn step-by-step how to draw accurate line graphs and best-fit lines for your science experiments</p>
+            <a href="#learn" class="btn btn-primary">Start Learning</a>
+        </section>
+
+        <!-- Learning Section -->
+        <section id="learn" class="section">
+            <h2>📚 Step-by-Step Guide</h2>
+            
+            <div class="steps-container">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Choose Your Axes</h3>
+                    <div class="step-content">
+                        <div class="step-visual">
+                            <canvas id="step1Canvas" width="300" height="200"></canvas>
+                        </div>
+                        <div class="step-text">
+                            <p><strong>Independent variable</strong> → X-axis (horizontal)</p>
+                            <p><strong>Dependent variable</strong> → Y-axis (vertical)</p>
+                            <div class="tip">
+                                <span class="tip-icon">💡</span>
+                                <span>The independent variable is what YOU control in the experiment (e.g., light intensity). The dependent variable is what you MEASURE (e.g., oxygen production).</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Choose Your Scale</h3>
+                    <div class="step-content">
+                        <div class="step-visual">
+                            <canvas id="step2Canvas" width="300" height="200"></canvas>
+                        </div>
+                        <div class="step-text">
+                            <ul>
+                                <li>Look at your <strong>highest value</strong> for each axis</li>
+                                <li>Choose a scale that uses <strong>most of the graph paper</strong></li>
+                                <li>Use <strong>easy intervals</strong>: 1, 2, 5, 10, 20, 50...</li>
+                                <li>Don't start at 0 if your data doesn't include 0</li>
+                            </ul>
+                            <div class="tip warning">
+                                <span class="tip-icon">⚠️</span>
+                                <span>Bad scale = squashed graph = hard to read = lost marks!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Label Your Axes</h3>
+                    <div class="step-content">
+                        <div class="step-visual">
+                            <canvas id="step3Canvas" width="300" height="200"></canvas>
+                        </div>
+                        <div class="step-text">
+                            <p>Each axis needs:</p>
+                            <ul>
+                                <li><strong>Name</strong> of the variable</li>
+                                <li><strong>Unit</strong> in brackets, e.g., (cm), (°C), (lux)</li>
+                            </ul>
+                            <div class="example">
+                                <strong>Examples:</strong><br>
+                                ✅ "Light intensity (lux)"<br>
+                                ✅ "Temperature (°C)"<br>
+                                ✅ "Oxygen production (cm³/min)"
+                            </div>
+                            <div class="tip">
+                                <span class="tip-icon">📍</span>
+                                <span>Labels can be at the END of the axis or along the SIDE - both are correct!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Plot Your Points</h3>
+                    <div class="step-content">
+                        <div class="step-visual">
+                            <canvas id="step4Canvas" width="300" height="200"></canvas>
+                        </div>
+                        <div class="step-text">
+                            <ul>
+                                <li>Use a <strong>sharp pencil</strong></li>
+                                <li>Mark points with a small <strong>X</strong> or <strong>•</strong></li>
+                                <li>Be <strong>accurate</strong> - check each point twice</li>
+                                <li>Points should be <strong>clearly visible</strong></li>
+                            </ul>
+                            <div class="tip">
+                                <span class="tip-icon">✏️</span>
+                                <span>Use X marks - they show the exact position better than dots!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card highlight">
+                    <div class="step-number">5</div>
+                    <h3>Draw the Best-Fit Line</h3>
+                    <div class="step-content">
+                        <div class="step-visual">
+                            <canvas id="step5Canvas" width="300" height="200"></canvas>
+                        </div>
+                        <div class="step-text">
+                            <div class="key-rules">
+                                <h4>🎯 Key Rules:</h4>
+                                <ol>
+                                    <li>Use a <strong>ruler</strong> for straight lines</li>
+                                    <li>The line does <strong>NOT</strong> need to pass through every point</li>
+                                    <li>Aim for <strong>equal points above and below</strong> the line</li>
+                                    <li>The line shows the <strong>general trend</strong></li>
+                                </ol>
+                            </div>
+                            <div class="tip success">
+                                <span class="tip-icon">✅</span>
+                                <span>A good best-fit line minimizes the total distance from all points to the line!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section faq-section">
+            <h2>❓ Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item" data-open="true">
+                    <div class="faq-question">
+                        <span>Must the best-fit line pass through some of the measured points?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>No!</strong> The best-fit line does NOT need to pass through any specific points.</p>
+                        <p>The line represents the <strong>overall trend</strong> of your data. It might pass through some points, all points, or no points at all - and that's perfectly fine!</p>
+                        <div class="visual-demo">
+                            <canvas id="faq1Canvas" width="400" height="200"></canvas>
+                        </div>
+                        <p class="note">In this example, the best-fit line doesn't pass through any points exactly, but it shows the trend correctly.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Should there be equal points above and below the line?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Yes, approximately!</strong> This is a good rule of thumb.</p>
+                        <p>A good best-fit line should have roughly the same number of points above it as below it. This helps ensure the line represents the middle of your data.</p>
+                        <div class="comparison">
+                            <div class="compare-item good">
+                                <canvas id="faq2aCanvas" width="180" height="150"></canvas>
+                                <p>✅ Good - balanced</p>
+                            </div>
+                            <div class="compare-item bad">
+                                <canvas id="faq2bCanvas" width="180" height="150"></canvas>
+                                <p>❌ Bad - unbalanced</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Must the line pass through (0,0) if there's a point there?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Not necessarily!</strong> The origin (0,0) is just another data point.</p>
+                        <p>Treat it like any other point when drawing your best-fit line. The line should show the overall trend, whether or not that includes the origin.</p>
+                        <div class="tip">
+                            <span class="tip-icon">🤔</span>
+                            <span>Only force your line through (0,0) if you have a <strong>scientific reason</strong> to believe the relationship must start at zero (e.g., if there's no light, there's no photosynthesis).</span>
+                        </div>
+                        <div class="visual-demo">
+                            <canvas id="faq3Canvas" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Where should axis labels be placed?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Both positions are acceptable!</strong></p>
+                        <div class="label-options">
+                            <div class="label-option">
+                                <canvas id="faq4aCanvas" width="180" height="150"></canvas>
+                                <p>✅ At the END of the axis</p>
+                            </div>
+                            <div class="label-option">
+                                <canvas id="faq4bCanvas" width="180" height="150"></canvas>
+                                <p>✅ Along the SIDE of the axis</p>
+                            </div>
+                        </div>
+                        <p>Just make sure:</p>
+                        <ul>
+                            <li>Labels are <strong>clear and readable</strong></li>
+                            <li>Include the <strong>unit</strong> in brackets</li>
+                            <li>Don't write over your data points!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if my points don't form a straight line?</span>
+                        <span class="faq-icon">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If your data shows a <strong>curve</strong>, draw a smooth curve of best fit instead!</p>
+                        <div class="visual-demo">
+                            <canvas id="faq5Canvas" width="400" height="200"></canvas>
+                        </div>
+                        <p>For curved data:</p>
+                        <ul>
+                            <li>Draw freehand (no ruler)</li>
+                            <li>Make the curve <strong>smooth</strong> - no jagged lines</li>
+                            <li>Still aim for equal points above and below</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Section -->
+        <section id="practice" class="section practice-section">
+            <h2>🎯 Practice Drawing</h2>
+            <p class="section-intro">Try plotting points and drawing a best-fit line yourself!</p>
+            
+            <div class="practice-container">
+                <div class="practice-controls">
+                    <div class="data-input">
+                        <h4>📊 Sample Data</h4>
+                        <table id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Light Intensity (lux)</th>
+                                    <th>Oxygen (cm³/min)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>0</td></tr>
+                                <tr><td>5</td><td>1.2</td></tr>
+                                <tr><td>10</td><td>2.0</td></tr>
+                                <tr><td>15</td><td>3.0</td></tr>
+                                <tr><td>20</td><td>3.5</td></tr>
+                                <tr><td>25</td><td>4.8</td></tr>
+                                <tr><td>30</td><td>5.9</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="practice-buttons">
+                        <button id="showPointsBtn" class="btn">Show Points</button>
+                        <button id="showLineBtn" class="btn">Show Best-Fit Line</button>
+                        <button id="resetBtn" class="btn btn-outline">Reset</button>
+                    </div>
+                    <div class="practice-tips">
+                        <p>💡 Click on the graph to plot your own points!</p>
+                        <p>📏 Try to draw where YOU think the best-fit line should go.</p>
+                    </div>
+                </div>
+                <div class="practice-graph">
+                    <canvas id="practiceCanvas" width="500" height="400"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section class="section reference-section">
+            <h2>📋 Quick Reference Checklist</h2>
+            <div class="checklist">
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Title at the top of the graph</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Independent variable on X-axis</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Dependent variable on Y-axis</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Both axes labeled with name AND unit</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Appropriate scale chosen</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Points plotted accurately</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Best-fit line drawn with ruler</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Roughly equal points above and below line</span>
+                </label>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ by Polymath Learning Centre</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
