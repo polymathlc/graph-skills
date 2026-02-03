@@ -35,6 +35,11 @@ body {
     font-size: 2rem;
 }
 
+.logo-img {
+    height: 45px;
+    width: auto;
+}
+
 .brand-text {
     font-size: 1.5rem;
     font-weight: 700;
@@ -245,6 +250,20 @@ body {
 
 .key-rules li {
     margin: 0.75rem 0;
+}
+
+/* Scenarios Section */
+.scenarios-section {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0f9ff 100%);
+}
+
+.scenarios-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 /* FAQ */
